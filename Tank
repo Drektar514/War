@@ -1,0 +1,19 @@
+using System;
+
+namespace War
+{
+    class Tank : Solder
+    {
+        public Tank(int health, int damage, int skillUp) : base("Танк", health, damage, 90)
+        {
+            SkillUp = skillUp;
+        }
+
+        public override void UseSkill()
+        {
+            base.UseSkill();
+            Console.WriteLine("Выстрел из пушки");
+            Damage *= SkillUp;
+        }
+    }
+}
