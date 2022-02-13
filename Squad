@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+
+namespace War
+{
+    class Squad
+    {
+        private int _soldersCount;
+        private Random _random;
+        private List<Solder> _solders;
+
+        public Squad(int soldersCount)
+        {
+            _solders = new List<Solder>();
+            _random = new Random();
+            _soldersCount = soldersCount;
+        }
+
+        public void Create()
+        {
+            int solders = 0;
+
+            Console.WriteLine("1.Автоматчик \n2.Джагернаут \n3.Стрелок с дробовиком \n4.Танк \n5.Ракетчик");
+
+            while (solders < _soldersCount)
+            {
+                int userInput;
+                bool isNumber = Int32.TryParse(Console.ReadLine(), out userInput);
+
+                if (isNumber)
+                {
+                    switch (userInput)
+                    {
+                        case 1:
+                            _solders.Add(new MachineGunner(_random.Next(70, 100), _random.Next(40, 60), _random.Next(15, 30), _random.Next(20, 50)));
+                            break;
+
+                        case 2:
+                            _solders.Add(new Juggernaut(_random.Next(15, 40), _random.Next(10, 50)));
+                            break;
+
+                        case 3:
+                            _solders.Add(new ShotgunGunner(_random.Next(100, 120), _random.Next(50, 75), _random.Next(15, 30), _random.Next(100, 300)));
+                            break;
+
+                        case 4:
+                            _solders.Add(new Tank(_random.Next(50, 70), _random.Next(60, 80), _random.Next(2, 10)));
+                            break;
+
+                        case 5:
+                            _solders.Add(new Rocketman(_random.Next(70, 90), _random.Next(20, 40), _random.Next(2, 10)));
+                            break;
+                    }
+
+                    solders++;
+                }
+
+                else
+                {
+                    Console.WriteLine("Введите номер выбранного солдата!");
+                }
+            }
+        }
+
+        public void ShowInfo()
+        {
+            for (int i = 0; i < _soldersCount; i++)
+            {
+                _solders[i].ShowInfo();
+            }
+        }
+
+        public void RemoveFallSolder(Solder solder)
+        {
+            if (solder.Health <= 0)
+            {
+                Console.WriteLine("Солдат пал");
+                _solders.Remove(solder);
+            }
+        }
+
+        public Solder GetSolder()
+        {
+            return _solders[_random.Next(0, _solders.Count)];
+        }
+
+        public void CheckFall()
+        {
+            if (_solders.Count == 0)
+            {
+                Console.WriteLine("Все солдаты отряда убиты, конец войне");
+            }
+        }
+
+        public int GetSoldersCount()
+        {
+            return _solders.Count;
+        }
+    }
+}
