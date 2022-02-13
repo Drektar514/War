@@ -1,0 +1,19 @@
+using System;
+
+namespace War
+{
+    class ShotgunGunner : Solder
+    {
+        public ShotgunGunner(int health, int damage, int armor, int skillUp) : base("Солдат с дробовиком", health, damage, armor)
+        {
+            SkillUp = skillUp;
+        }
+
+        public override void UseSkill()
+        {
+            base.UseSkill();
+            Console.WriteLine("Огненный выстрел");
+            Health += SkillUp;
+        }
+    }
+}
