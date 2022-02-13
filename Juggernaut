@@ -1,0 +1,19 @@
+using System;
+
+namespace War
+{
+    class Juggernaut : Solder
+    {
+        public Juggernaut(int damage, int skillUp) : base("Джагернаут", 150, damage, 70)
+        {
+            SkillUp = skillUp;
+        }
+
+        public override void UseSkill()
+        {
+            base.UseSkill();
+            Console.WriteLine("Усиление брони");
+            Armor += SkillUp;
+        }
+    }
+}
