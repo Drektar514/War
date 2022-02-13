@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+
+namespace War
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Solder userSolder;
+            Solder enemySolder;
+            Squad userSquad = new Squad(3);
+            Squad enemySquad = new Squad(3);
+
+            Console.WriteLine("Добро пожаловать командир, создайте свой отряд: ");
+            userSquad.Create();
+            
+            Console.WriteLine("Создайте вражеский отряд: ");
+            enemySquad.Create();
+            
+            Console.WriteLine("\nИнформация вашего отряда: ");
+            userSquad.ShowInfo();
+            
+            Console.WriteLine("\nИнформация отряда противника: ");
+            enemySquad.ShowInfo();
+
+            while (userSquad.GetSoldersCount() > 0 && enemySquad.GetSoldersCount() > 0)
+            {
+                Console.Clear();
+                
+                userSolder = userSquad.GetSolder();
+                enemySolder = enemySquad.GetSolder();
+
+                while (userSolder.Health > 0 && enemySolder.Health > 0)
+                {
+                    enemySolder.TakeDamage(userSolder.Damage);
+                    userSolder.TakeDamage(enemySolder.Damage);
+                }
+
+                userSquad.RemoveFallSolder(userSolder);
+                enemySquad.RemoveFallSolder(enemySolder);
+                
+                userSquad.ShowInfo();
+                Console.WriteLine("\n \n \n \n");
+                
+                enemySquad.ShowInfo();
+                
+                userSquad.CheckFall();
+                enemySquad.CheckFall();
+                
+                Console.ReadKey();
+            }
+            
+            Console.ReadKey();
+        }
+    }
