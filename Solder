@@ -1,0 +1,49 @@
+using System;
+
+namespace War
+{
+    abstract class Solder
+    {
+        private Random _random = new Random();
+
+        protected string Name;
+        protected int Armor;
+        protected int SkillUp;
+
+        public int Health { get; protected set; }
+        public int Damage { get; protected set; }
+
+        public Solder(string name, int health, int damage, int armor)
+        {
+            Name = name;
+            Health = health;
+            Damage = damage;
+            Armor = armor;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            int damageResist = 100;
+            bool activeSkill = Convert.ToBoolean(_random.Next(0, 2));
+
+            if (activeSkill)
+            {
+                UseSkill();
+            }
+
+            int damageWithArmor = (damage * Armor) / damageResist;
+            Health -= damageWithArmor;
+        }
+
+        public virtual void UseSkill()
+        {
+            Console.WriteLine("Умение активировано");
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Подразделение - {Name}, уровень здоровья - {Health}, урон - {Damage}, броня - {Armor}.");
+        }
+
+    }
+}
