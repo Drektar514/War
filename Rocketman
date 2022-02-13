@@ -1,0 +1,19 @@
+using System;
+
+namespace War
+{
+    class Rocketman : Solder
+    {
+        public Rocketman(int health, int armor, int skillUp) : base("Ракетчик", health, 100, armor)
+        {
+            SkillUp = skillUp;
+        }
+
+        public override void UseSkill()
+        {
+            base.UseSkill();
+            Console.WriteLine("Запуск рaкет");
+            Damage *= SkillUp;
+        }
+    }
+}
