@@ -1,0 +1,19 @@
+using System;
+
+namespace War
+{
+    class MachineGunner : Solder
+    {
+        public MachineGunner(int health, int damage, int armor, int skillUp) : base("Автоматчик", health, damage, armor)
+        {
+            SkillUp = skillUp;
+        }
+
+        public override void UseSkill()
+        {
+            base.UseSkill();
+            Console.WriteLine("Бросок гранаты");
+            Damage += SkillUp;
+        }
+    }
+}
